@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Orders (Admin)</h2>
+{% if orders %}
+  <table class="table">
+    <thead><tr><th>Order #</th><th>User</th><th>Date (UTC)</th><th>Total</th><th></th></tr></thead>
+    <tbody>
+      {% for o in orders %}
+      <tr>
+        <td>#{{ o.id }}</td>
+        <td>{{ o.username }}</td>
+        <td>{{ o.created_at }}</td>
+        <td>${{ "%.2f"|format(o.total) }}</td>
+        <td><a class="btn btn-sm btn-primary" href="{{ url_for('order_detail', order_id=o.id) }}">View</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No orders found.</p>
+{% endif %}
+{% endblock %}

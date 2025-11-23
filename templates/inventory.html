@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block content %}
 <h2>Inventory</h2>
@@ -8,13 +9,19 @@
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
-      <th style="width:160px">Actions</th>
+      <th style="width:320px">Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for item in items %}
     <tr>
-      <td><img src="{{ url_for('static', filename='images/' ~ item.image) }}" class="thumbnail border"></td>
+      <td>
+        {% if item.image %}
+          <img src="{{ url_for('static', filename='images/' ~ item.image) }}" class="thumbnail border" style="max-width:64px;">
+        {% else %}
+          <img src="{{ url_for('static', filename='images/default.svg') }}" class="thumbnail border" style="max-width:64px;">
+        {% endif %}
+      </td>
       <td>{{ item.name }}</td>
       <td>{{ item.description }}</td>
       <td>${{ "%.2f"|format(item.price) }}</td>
@@ -23,7 +30,14 @@
         <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('edit_item', item_id=item.id) }}">Edit</a>
 
         <form action="{{ url_for('remove_item', item_id=item.id) }}" method="post" style="display:inline;" onsubmit="return confirm('Delete this item?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+        </form>
+
+        <form action="{{ url_for('add_to_cart', item_id=item.id) }}" method="post" style="display:inline;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="qty" value="1">
+          <button class="btn btn-sm btn-success" type="submit">Add to cart</button>
         </form>
       </td>
     </tr>

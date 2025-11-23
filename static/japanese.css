@@ -1,0 +1,240 @@
+
+
+/* Page background: sakura gradient + washi texture overlay */
+body {
+    background: linear-gradient(180deg, #FDEFF3 0%, #FFF8EE 50%, #F6F9FF 100%);
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 140px; /* room for footer */
+    color: #222831;
+    font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+/* Washed paper subtle texture (use static/images/washi.png - light, repeating) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("/static/images/washi.png");
+    background-repeat: repeat;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Ukiyo-e / wave accent at bottom (replace wave.svg with an ukiyo-e style SVG) */
+body::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 220%;
+    height: 160px;
+    background: url("/static/images/ukiyoe-wave.svg") repeat-x;
+    background-size: auto 160px;
+    animation: wave 18s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+}
+@keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Header / nav: indigo with gold accent */
+header {
+    background-color: #1f3b7a; /* deep indigo */
+    color: #fffdfa;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 4px solid #d4af37; /* gold accent */
+    box-shadow: 0 6px 18px rgba(31,59,122,0.08);
+}
+
+header h1 {
+    margin: 0;
+    font-family: "Noto Serif JP", "Noto Sans JP", serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: 1.45rem;
+}
+
+/* Nav: wider spacing, vertical rhythm like Japanese design */
+nav {
+    display:flex;
+    justify-content:center;
+    gap: .6rem;
+    margin-top: .9rem;
+}
+
+nav a {
+    color: #fffdfa;
+    text-decoration: none;
+    padding: .45rem .9rem;
+    margin: 0 .25rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.06);
+    font-size: .95rem;
+    transition: transform .12s ease, background .12s ease;
+}
+
+nav a:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.06);
+}
+
+/* Main content layout: centered with plenty of breathing space */
+main {
+    padding: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: 560px;
+    z-index: 2;
+    position: relative;
+}
+
+/* Cards: clean, rectilinear, and minimal shadows */
+.card, .product-card, .product-detail, .hero {
+    background-color: rgba(255,255,255,0.92);
+    border: 1px solid rgba(20,20,20,0.06);
+    padding: 18px;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(31,59,122,0.04);
+}
+
+/* Hero */
+.hero {
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 6px solid #d4af37; /* vertical gold strip */
+}
+
+/* Product grid */
+.product-grid {
+    display:flex;
+    flex-wrap:wrap;
+    gap: 14px;
+    justify-content:flex-start;
+}
+
+.product-card {
+    width: 220px;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* Product image style: framed like a small print */
+.product-card img, .product-detail img {
+    width:100%;
+    height:auto;
+    max-height:190px;
+    object-fit:cover;
+    border: 8px solid rgba(249,246,240,0.85); /* light paper frame */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Typography */
+h2, h3 {
+    font-family: "Noto Serif JP", "Noto Sans JP", serif;
+    color: #10203b;
+    margin-bottom: 8px;
+    letter-spacing: .01em;
+}
+
+p, td, th, label {
+    font-family: "Noto Sans JP", sans-serif;
+    color: #2b3036;
+}
+
+/* Price color (subtle vermilion) */
+.price, .product-card .price {
+    color: #d1342a;
+    font-weight: 600;
+}
+
+/* Buttons: minimalist, rectangular with subtle gold stroke */
+.btn, button, .btn-primary {
+    display:inline-block;
+    padding:.45rem .7rem;
+    border-radius:4px;
+    border: 1px solid rgba(16,32,59,0.08);
+    background: linear-gradient(180deg, #fffdfa, #f7f3ef);
+    color: #10203b;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn.primary, .btn-primary {
+    background: linear-gradient(180deg, #1f3b7a, #173063);
+    color: #fffdfa;
+    border: 1px solid rgba(212,175,55,0.08);
+    box-shadow: 0 6px 14px rgba(31,59,122,0.08);
+}
+.btn:hover, .btn.primary:hover {
+    transform: translateY(-2px);
+}
+
+/* Table styling: subtle separators and comfortable spacing */
+table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:16px;
+}
+th, td {
+    padding:10px 12px;
+    border-bottom: 1px solid rgba(16,32,59,0.05);
+}
+th {
+    background: linear-gradient(180deg,#f8f5f2,#fff);
+    font-weight:700;
+}
+
+/* Thumbnail */
+.thumbnail {
+    width:80px;
+    height:60px;
+    object-fit:cover;
+    border: 2px solid rgba(16,32,59,0.04);
+}
+
+/* Forms */
+input[type="text"], input[type="number"], textarea, select {
+    width:100%;
+    padding:10px;
+    border:1px solid rgba(16,32,59,0.08);
+    background: rgba(255,255,255,0.98);
+    border-radius:4px;
+    box-sizing:border-box;
+    font-size:.95rem;
+}
+
+/* Footer */
+footer {
+    text-align:center;
+    padding:1rem 0;
+    background-color:#10203b;
+    color:#fffdfa;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    border-top:4px solid #d4af37;
+    z-index: 3;
+}
+
+/* Small screens: stack cards and increase spacing */
+@media (max-width: 780px) {
+    .product-card { width: calc(50% - 16px); }
+    nav { flex-wrap: wrap; gap: .4rem; }
+    header h1 { font-size: 1.15rem; }
+}
+
+/* Ultra-small screens: single column */
+@media (max-width: 420px) {
+    .product-card { width: 100%; }
+    main { padding: 14px; }
+}
