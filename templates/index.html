@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for item in items %}
+  <div class="col">
+    <div class="card h-100">
+      {% if item.image %}
+        <img src="{{ url_for('static', filename='images/' ~ item.image) }}" alt="{{ item.name }}" class="card-img-top item-img">
+      {% else %}
+        <img src="{{ url_for('static', filename='images/default.svg') }}" alt="No image" class="card-img-top item-img">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">{{ item.description }}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between align-items-center">
+        <strong>${{ "%.2f"|format(item.price) }}</strong>
+        <a class="btn btn-sm btn-primary" href="{{ url_for('product_detail', item_id=item.id) }}">View</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p>No items available.</p>
+  {% endfor %}
+</div>
+{% endblock %}

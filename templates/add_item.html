@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Item</h2>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input name="name" class="form-control" required value="{{ name|default('') }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Price</label>
+    <input name="price" class="form-control" value="{{ request.form.price|default('') }}">
+    <div class="form-text">Numbers only. Leave blank for 0.00</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" rows="3">{{ description|default('') }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Image (optional)</label>
+    <input type="file" name="image" accept="image/*" class="form-control">
+    <div class="form-text">PNG/JPG/GIF. Max 16MB.</div>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Add Item</button>
+  <a class="btn btn-secondary" href="{{ url_for('inventory') }}">Cancel</a>
+</form>
+{% endblock %}

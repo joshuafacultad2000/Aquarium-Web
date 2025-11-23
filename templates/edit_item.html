@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Item</h2>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input name="name" class="form-control" required value="{{ item.name }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Price</label>
+    <input name="price" class="form-control" value="{{ item.price }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" rows="3">{{ item.description }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Current Image</label>
+    <div class="mb-2"><img src="{{ url_for('static', filename='images/' ~ item.image) }}" class="thumbnail border"></div>
+    <label class="form-label">Replace Image (optional)</label>
+    <input type="file" name="image" accept="image/*" class="form-control">
+  </div>
+
+  <button class="btn btn-primary" type="submit">Save Changes</button>
+  <a class="btn btn-secondary" href="{{ url_for('inventory') }}">Cancel</a>
+</form>
+{% endblock %}
